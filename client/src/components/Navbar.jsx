@@ -7,8 +7,8 @@ import { useClerk, UserButton, useUser } from '@clerk/clerk-react'
 const Navbar = () => {
 
   const [isOpen, setIsOpen] = useState(false);
-  const {user} = useUser()
-  const {openSignIn} = useClerk()
+  const { user } = useUser()
+  const { openSignIn } = useClerk()
 
   const navigate = useNavigate();
 
@@ -24,30 +24,51 @@ const Navbar = () => {
 
         <XIcon onClick={() => setIsOpen(!isOpen)} className='md:hidden absolute top-6 right-6 w-6 h-6 cursor-pointer' />
 
-        <Link onClick={() => {scrollTo(0,0); setIsOpen(false)}}  to='/'>Home</Link>
+        {/* <Link onClick={() => {scrollTo(0,0); setIsOpen(false)}}  to='/'>Home</Link>
         <Link onClick={() => {scrollTo(0,0); setIsOpen(false)}}  to='/movies'>Movies</Link>
         <Link onClick={() => {scrollTo(0,0); setIsOpen(false)}}  to='/'>Theaters</Link>
         <Link onClick={() => {scrollTo(0,0); setIsOpen(false)}}  to='/'>Releases</Link>
-        <Link onClick={() => {scrollTo(0,0); setIsOpen(false)}}  to='/favorite'>Favorites</Link>
+        <Link onClick={() => {scrollTo(0,0); setIsOpen(false)}}  to='/favorite'>Favorites</Link> */}
+
+        <Link onClick={() => { scrollTo(0, 0); setIsOpen(false); }} to="/" className={` ${location.pathname === '/' ? 'text-primary font-semibold' : 'text-white hover:text-primary hover:font-semibold'}`}> 
+          Home
+        </Link>
+
+        <Link onClick={() => { scrollTo(0, 0); setIsOpen(false); }} to="/movies" className={` ${location.pathname === '/movies' ? 'text-primary font-semibold' : 'text-white hover:text-primary hover:font-semibold'}`}>
+          Movies
+        </Link>
+
+        <Link onClick={() => { scrollTo(0, 0); setIsOpen(false); }} to="/" className={` ${location.pathname === '/theaters' ? 'text-primary font-semibold' : 'text-white hover:text-primary hover:font-semibold'}`}>
+          Theaters
+        </Link>
+
+        <Link onClick={() => { scrollTo(0, 0); setIsOpen(false); }} to="/releases" className={` ${location.pathname === '/releases' ? 'text-primary font-semibold' : 'text-white hover:text-primary hover:font-semibold'}`}>
+          Releases
+        </Link>
+
+        <Link onClick={() => { scrollTo(0, 0); setIsOpen(false); }} to="/favorite" className={` ${location.pathname === '/favorite' ? 'text-primary font-semibold' : 'text-white hover:text-primary hover:font-semibold'}`}>
+          Favorites
+        </Link>
+
 
       </div>
 
       <div className='flex items-center gap-8'>
         <SearchIcon className='max-md:hidden w-6 h-6 cursor-pointer' />
         {
-          !user ? 
-          (<button onClick={openSignIn} className='px-4 py-1 sm:px-7 sm:py-2 bg-primary hover:bg-primary-dull transition rounded-full font-medium cursor-pointer'>Login</button>) 
-                : 
-          (
-            <UserButton>
-              <UserButton.MenuItems>
-                <UserButton.Action label='My Bookings' labelIcon={<TicketPlus width={15} />} onClick={() => navigate('/my-bookings')}  />
-              </UserButton.MenuItems>
-            </UserButton>
-          )
+          !user ?
+            (<button onClick={openSignIn} className='px-4 py-1 sm:px-7 sm:py-2 bg-primary hover:bg-primary-dull transition rounded-full font-medium cursor-pointer'>Login</button>)
+            :
+            (
+              <UserButton>
+                <UserButton.MenuItems>
+                  <UserButton.Action label='My Bookings' labelIcon={<TicketPlus width={15} />} onClick={() => navigate('/my-bookings')} />
+                </UserButton.MenuItems>
+              </UserButton>
+            )
         }
-        
-     
+
+
       </div>
 
       <MenuIcon onClick={() => setIsOpen(!isOpen)} className='max-md:ml-4 md:hidden w-8 h-8 cursor-pointer' />
