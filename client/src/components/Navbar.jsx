@@ -42,7 +42,7 @@ const Navbar = () => {
           Theaters
         </Link>
 
-        <Link onClick={() => { scrollTo(0, 0); setIsOpen(false); }} to="/releases" className={` ${location.pathname === '/releases' ? 'text-primary font-semibold' : 'text-white hover:text-primary hover:font-semibold'}`}>
+        <Link onClick={() => { scrollTo(0, 0); setIsOpen(false); }} to="/" className={` ${location.pathname === '/releases' ? 'text-primary font-semibold' : 'text-white hover:text-primary hover:font-semibold'}`}>
           Releases
         </Link>
 
