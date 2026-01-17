@@ -16,7 +16,7 @@ export const getNowPlayingMovies = async (req, res) => {
 
     } catch (error) {
 
-        console.log(error);
+        console.error(error);
         res.json({ success: false, message: error.message });
     }
 }
@@ -86,7 +86,7 @@ export const addShow = async (req, res) => {
 
     } catch (error) {
 
-        console.log(error);
+        console.error(error);
         res.json({ success: false, message: error.message });
     }
 }
@@ -106,7 +106,7 @@ export const getShows = async (req, res) => {
         res.json({ success: true, shows: Array.from(uniqueShows) })
 
     } catch (error) {
-        console.log(error);
+        console.error(error);
         res.json({ success: false, message: error.message })
     }
 }
@@ -133,7 +133,7 @@ export const getShow = async (req, res) => {
         res.json({ success: true, movie, dateTime })
 
     } catch (error) {
-        console.log(error);
+        console.error(error);
         res.json({ success: false, message: error.message })
     }
 }

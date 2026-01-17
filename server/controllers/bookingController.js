@@ -18,7 +18,7 @@ const checkSeatsAvailability = async (showId, selectedSeats) => {
         // those this will return the opposite
 
     } catch (error) {
-        console.log(error);
+        console.error(error);
         return false;
     }
 }
@@ -60,7 +60,7 @@ export const createBooking = async (req, res) => {
         res.json({ success: true, message: 'Booked Successfully' })
 
     } catch (error) {
-        console.log(error);
+        console.error(error.message);
         res.json({ success: false, message: error.message })
     }
 }
@@ -77,7 +77,7 @@ export const getOccupiedSeats = async (req, res) => {
         res.json({ success: true, occupiedSeats })
 
     } catch (error) {
-        console.log(error);
+        console.error(error.message);
         res.json({ success: false, message: error.message })
     }
 }
