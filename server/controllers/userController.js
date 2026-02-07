@@ -9,10 +9,14 @@ export const getUserBookings = async (req, res) => {
 
         const user = req.auth().userId;
 
-        const bookings = await Booking.find({ user }).populate({
+        let bookings = await Booking.find({ user }).populate({
             path: 'show',
             populate: {path: "movie"}
         }).sort({ createdAt: -1 });
+
+        bookings = bookings.filter(
+            b => b.show && b.show.movie
+        );
 
         res.json({ success: true, bookings });
         
