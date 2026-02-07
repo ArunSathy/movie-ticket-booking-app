@@ -104,7 +104,7 @@ const sendBookingConfirmationEmail = inngest.createFunction(
                     <p><strong>Date:</strong> ${new Date(booking.show.showDateTime).toLocaleDateString('en-US', {timeZone: 'Asia/Kolkata'})}</p>
                     <p><strong>Time:</strong> ${new Date(booking.show.showDateTime).toLocaleTimeString('en-US', {timeZone: 'Asia/Kolkata'})}</p>
                     <p><strong>Seats:</strong> ${booking.bookedSeats.join(', ')}</p>
-                    <p><strong>Total Amount:</strong> ₹${booking.totalAmount}</p> 
+                    <p><strong>Total Amount:</strong> ₹${booking.amount}</p> 
                 </div>
                 
                 <p>We look forward to seeing you at the cinema!</p>
