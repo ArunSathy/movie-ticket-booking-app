@@ -41,13 +41,13 @@ const Navbar = () => {
           Movies
         </Link>
 
-        <Link onClick={() => { scrollTo(0, 0); setIsOpen(false); }} to="/" className={` ${location.pathname === '/theaters' ? 'text-primary font-semibold' : 'text-white hover:text-primary hover:font-semibold'}`}>
+        {/* <Link onClick={() => { scrollTo(0, 0); setIsOpen(false); }} to="/" className={` ${location.pathname === '/theaters' ? 'text-primary font-semibold' : 'text-white hover:text-primary hover:font-semibold'}`}>
           Theaters
-        </Link>
+        </Link> */}
 
-        <Link onClick={() => { scrollTo(0, 0); setIsOpen(false); }} to="/" className={` ${location.pathname === '/releases' ? 'text-primary font-semibold' : 'text-white hover:text-primary hover:font-semibold'}`}>
+        {/* <Link onClick={() => { scrollTo(0, 0); setIsOpen(false); }} to="/" className={` ${location.pathname === '/releases' ? 'text-primary font-semibold' : 'text-white hover:text-primary hover:font-semibold'}`}>
           Releases
-        </Link>
+        </Link> */}
 
         {favoriteMovies.length > 0 && <Link onClick={() => { scrollTo(0, 0); setIsOpen(false); }} to="/favorite" className={` ${location.pathname === '/favorite' ? 'text-primary font-semibold' : 'text-white hover:text-primary hover:font-semibold'}`}>
           Favorites
