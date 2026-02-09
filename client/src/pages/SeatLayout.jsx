@@ -63,13 +63,13 @@ const SeatLayout = () => {
   }
 
   const renderSeats = (row, count = 9) => (
-    <div key={row} className='flex gap-2 mt-2 w-max'>
-      <div className='flex items-center justify-center gap-2'>
+    <div key={row} className='flex gap-1.5 mt-1.5 w-max'>
+      <div className='flex items-center justify-center gap-1.5'>
         {
           Array.from({ length: count }, (_, i) => {
             const seatId = `${row}${i + 1}`;
             return (
-              <button key={seatId} onClick={() => handleSeatClick(seatId)} className={`h-8 w-8 rounded border border-primary/60 cursor-pointer ${selectedSeats.includes(seatId) && "bg-primary text-white"} ${occupiedSeats.includes(seatId) && "opacity-50"}`}>
+              <button key={seatId} onClick={() => handleSeatClick(seatId)} className={`h-7 w-7 text-[10px] rounded border border-primary/60 cursor-pointer ${selectedSeats.includes(seatId) && "bg-primary text-white"} ${occupiedSeats.includes(seatId) && "opacity-50"}`}>
                 {seatId}
               </button>
             )
@@ -128,17 +128,16 @@ const SeatLayout = () => {
         <BlurCircle top='-100px' left='-100px' />
         <BlurCircle bottom='0px' right='0px' />
         <h1 className='text-2xl font-semibold mb-10'>Select your seats</h1>
-        <img src={assets.screenImage} alt="" />
-        <p className='text-gray-400 text-sm mb-6'>SCREEN SIDE</p>
-
         <div className='w-full overflow-x-auto no-scrollbar'>
-          <div className='flex flex-col items-center mt-10 text-xs text-gray-300 min-w-max'>
-            <div className='flex flex-col gap-2 mb-6'>
+          <div className='flex flex-col items-center mt-6 text-xs text-gray-300 min-w-max'>
+            <img className='w-60 opacity-80' src={assets.screenImage} alt="" />
+            <p className='text-gray-400 text-[10px] mb-4'>SCREEN SIDE</p>
+            <div className='flex flex-col gap-1.5 mb-4'>
               {groupRows[0].map(row => renderSeats(row))}
             </div>
-            <div className='grid grid-cols-2 gap-x-11 gap-y-2'>
+            <div className='grid grid-cols-2 gap-x-8 gap-y-1.5'>
               {groupRows.slice(1).map((group, index) => (
-                <div key={index} className='flex flex-col gap-2 mb-8'>
+                <div key={index} className='flex flex-col gap-1.5 mb-6'>
                   {group.map(row => renderSeats(row))}
                 </div>
               ))}
