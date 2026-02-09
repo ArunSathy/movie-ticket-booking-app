@@ -14,7 +14,7 @@ const SeatLayout = () => {
 
   const { id, date } = useParams();
 
-  const { axios, getToken, user} = useAppContext();
+  const { axios, getToken, user } = useAppContext();
 
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [selectedTime, setSelectedTime] = useState(null);
@@ -26,11 +26,11 @@ const SeatLayout = () => {
   const getshow = async () => {
     try {
 
-      const {data} = await axios.get(`/api/show/${id}`)
-      if(data.success){
+      const { data } = await axios.get(`/api/show/${id}`)
+      if (data.success) {
         setShow(data)
       }
-      
+
     } catch (error) {
       console.log(error);
     }
@@ -43,7 +43,7 @@ const SeatLayout = () => {
     if (!selectedSeats.includes(seatId) && selectedSeats.length > 4) {
       return toast.error('You can only select 5 seats')
     }
-    if(occupiedSeats.includes(seatId)){
+    if (occupiedSeats.includes(seatId)) {
       return toast.error('Seat is already booked')
     }
     setSelectedSeats(prev => prev.includes(seatId) ? prev.filter(seat => seat !== seatId) : [...prev, seatId])
@@ -51,20 +51,20 @@ const SeatLayout = () => {
 
   const getOccupiedSeats = async () => {
     try {
-      const {data} = await axios.get(`/api/booking/seats/${selectedTime.showId}`)
-      if(data.success){
+      const { data } = await axios.get(`/api/booking/seats/${selectedTime.showId}`)
+      if (data.success) {
         setOccupiedSeats(data.occupiedSeats)
-      }else{
+      } else {
         toast.error(data.message)
       }
     } catch (error) {
-      console.log(error); 
+      console.log(error);
     }
   }
 
   const renderSeats = (row, count = 9) => (
-    <div key={row} className='flex gap-2 mt-2'>
-      <div className='flex flex-wrap items-center justify-center gap-2'>
+    <div key={row} className='flex gap-2 mt-2 w-max'>
+      <div className='flex items-center justify-center gap-2'>
         {
           Array.from({ length: count }, (_, i) => {
             const seatId = `${row}${i + 1}`;
@@ -81,15 +81,15 @@ const SeatLayout = () => {
 
   const bookTickets = async () => {
     try {
-      if(!user) return toast.error('Please login to proceed')
-    
-      if(!selectedTime || !selectedSeats.length) return toast.error('Please select seats and time')
-      
-      const {data} = await axios.post('api/booking/create', {showId: selectedTime.showId, selectedSeats},{headers: {Authorization: `Bearer ${await getToken()}`}});
+      if (!user) return toast.error('Please login to proceed')
 
-      if(data.success){
+      if (!selectedTime || !selectedSeats.length) return toast.error('Please select seats and time')
+
+      const { data } = await axios.post('api/booking/create', { showId: selectedTime.showId, selectedSeats }, { headers: { Authorization: `Bearer ${await getToken()}` } });
+
+      if (data.success) {
         window.location.href = data.url;
-      }else{
+      } else {
         toast.error(data.message)
       }
     } catch (error) {
@@ -102,7 +102,7 @@ const SeatLayout = () => {
   }, [])
 
   useEffect(() => {
-    if(selectedTime){
+    if (selectedTime) {
       getOccupiedSeats()
     }
   }, [selectedTime])
@@ -131,24 +131,26 @@ const SeatLayout = () => {
         <img src={assets.screenImage} alt="" />
         <p className='text-gray-400 text-sm mb-6'>SCREEN SIDE</p>
 
-        <div className='flex flex-col items-center mt-10 text-xs text-gray-300'>
-          <div className='grid grid-cols-2 md:grid-cols-1 gap-8 md:gap-2 mb-6'>
-            {groupRows[0].map(row => renderSeats(row))}
-          </div>
-          <div className='grid grid-cols-2 gap-11'>
-            {groupRows.slice(1).map((group, index) => (
-              <div key={index}>
-                {group.map(row => renderSeats(row))}
-              </div>
-            ))}
-          </div>
+        <div className='w-full overflow-x-auto no-scrollbar'>
+          <div className='flex flex-col items-center mt-10 text-xs text-gray-300 min-w-max'>
+            <div className='flex flex-col gap-2 mb-6'>
+              {groupRows[0].map(row => renderSeats(row))}
+            </div>
+            <div className='grid grid-cols-2 gap-x-11 gap-y-2'>
+              {groupRows.slice(1).map((group, index) => (
+                <div key={index} className='flex flex-col gap-2 mb-8'>
+                  {group.map(row => renderSeats(row))}
+                </div>
+              ))}
+            </div>
 
+          </div>
         </div>
 
-            <button onClick={bookTickets} className='flex items-center gap-1 mt-20 px-10 py-3 text-sm bg-primary hover:bg-primary-dull transition rounded-full font-medium cursor-pointer active:scale-95'>
-              Proceed to checkout
-              <ArrowRightIcon strokeWidth={3} className='w-4 h-4'/>
-            </button>
+        <button onClick={bookTickets} className='flex items-center gap-1 mt-20 px-10 py-3 text-sm bg-primary hover:bg-primary-dull transition rounded-full font-medium cursor-pointer active:scale-95'>
+          Proceed to checkout
+          <ArrowRightIcon strokeWidth={3} className='w-4 h-4' />
+        </button>
 
       </div>
 
